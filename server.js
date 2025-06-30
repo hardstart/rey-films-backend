@@ -9,8 +9,15 @@ const PORT = process.env.PORT || 3000;
 const FILMS_FILE = path.join(__dirname, 'films.json');
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'https://rey-films-backend.onrender.com',
+        'https://*.onrender.com'
+    ],
+    credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.static('public')); // Serve static files from public directory
 
 // Initialize films file if it doesn't exist
